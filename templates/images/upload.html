@@ -19,7 +19,21 @@
               <!--form from views-->
               {% csrf_token %}
               <!--form must receive csrf token-->
-              {{forms.user}} {{form.as_p}}
+              {% for field in form.visible_fields %}
+              <p>
+                <!--field render-->
+                {% if field.label == 'User' %}
+                <!--field-->
+                <div style="display: block;height:0;line-height: 0;overflow: hidden;";>
+                  {{ field.label }} {{ field }}
+                </div>
+                <!--if statement-->
+                {% else %}
+                {{ field.label }} {{ field }}
+                <!--not in if statement-->
+                {% endif %}
+              </p>
+              {% endfor %}
               <input type="submit" />
             </form>
           </div>

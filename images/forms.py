@@ -9,8 +9,8 @@ class ImageForm(ModelForm):
         model = Image
         fields = '__all__'
         exclude = ['upload_date']
-
         widgets = {
+            'user': forms.Select(),
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'imageDescription': forms.Textarea(attrs={'class': 'form-control'})
         }

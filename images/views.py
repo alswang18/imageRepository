@@ -1,9 +1,11 @@
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import ImageForm
-from .models import Image
 from django.db.models import Q
 from django.contrib.auth.models import User
+
+from .forms import ImageForm
+from .models import Image
+# from .watermark import addWatermark
 
 
 def homepage(request):
@@ -40,8 +42,9 @@ def upload(request):
     if request.method == 'POST':
         print(request.POST)
         form = ImageForm(request.POST, request.FILES)
-        print(form.is_valid())
-        if form.is_valid():
+        print(form.instance.user_id == request.user.id)
+        print(form.instance.user_id)
+        if form.is_valid() and form.instance.user_id == request.user.id:
             form.save()
             print("Form Saved")
             return redirect('dashboard')
