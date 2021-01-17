@@ -59,11 +59,14 @@ def dashboard(request):
     if request.user.id is None:
         return redirect('home')
 
-    images = Image.objects.order_by(
-        '-upload_date').filter(Q(user=request.user.id) | Q(hidden_to_others=False))
+    my_images = Image.objects.order_by(
+        '-upload_date').filter(Q(user=request.user.id))
 
+    public_images = Image.objects.order_by(
+        '-upload_date').filter(~Q(user=request.user.id)).filter(hidden_to_others=False)
     context = {
-        'images': images
+        'my_images': my_images,
+        'public_images': public_images
     }
     return render(request, 'accounts/dashboard.html', context)
 
