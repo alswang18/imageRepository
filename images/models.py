@@ -13,6 +13,8 @@ class Image(models.Model):
     title = models.CharField(max_length=200)
     image = models.ImageField(upload_to='photos/%Y/%m/%d')
     imageDescription = models.TextField(blank=True)
+    copyrighted = models.BooleanField(default=True)
+    hidden_to_others = models.BooleanField(default=True)
     upload_date = models.DateTimeField(default=datetime.now)
 
     def __str__(self):

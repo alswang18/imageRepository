@@ -1,6 +1,8 @@
+from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ImageForm
 from .models import Image
+from django.db.models import Q
 from django.contrib.auth.models import User
 
 
@@ -12,7 +14,14 @@ def homepage(request):
 
 
 def image(request, image_id):
-    image = get_object_or_404(Image, pk=image_id, user=request.user.id)
+    image = Image.objects.filter(
+        Q(user=request.user.id) | Q(hidden_to_others=False)
+    ).filter(pk=image_id)
+
+    if image.exists():
+        image = image[0]
+    else:
+        raise Http404("Image does not exist or is unavailable.")
 
     context = {
         'image': image
@@ -27,7 +36,7 @@ def upload(request):
         user = user[0]
     else:
         return redirect('login')
-    form = ImageForm()
+    form = ImageForm(initial={'user': user})
     if request.method == 'POST':
         print(request.POST)
         form = ImageForm(request.POST, request.FILES)

@@ -11,7 +11,6 @@ class ImageForm(ModelForm):
         exclude = ['upload_date']
 
         widgets = {
-
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'imageDescription': forms.Textarea(attrs={'class': 'form-control'})
         }
