@@ -19,7 +19,7 @@
               <!--form from views-->
               {% csrf_token %}
               <!--form must receive csrf token-->
-              {{form}}
+              {{forms.user}} {{form.as_p}}
               <input type="submit" />
             </form>
           </div>

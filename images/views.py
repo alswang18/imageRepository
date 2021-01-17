@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ImageForm
 from .models import Image
+from django.contrib.auth.models import User
 
 
 def homepage(request):
@@ -21,11 +22,16 @@ def image(request, image_id):
 
 
 def upload(request):
+    user = User.objects.filter(pk=request.user.id)
+    if user.exists():
+        user = user[0]
+    else:
+        return redirect('login')
     form = ImageForm()
     if request.method == 'POST':
-        print(request.FILES)
         print(request.POST)
         form = ImageForm(request.POST, request.FILES)
+        print(form.is_valid())
         if form.is_valid():
             form.save()
             print("Form Saved")
