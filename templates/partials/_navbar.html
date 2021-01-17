@@ -20,7 +20,7 @@
         </li>
         {% if user.is_authenticated %}
         <li
-          {% if 'upload' == request.path %}
+          {% if 'upload' in request.path %}
             class="nav-item active mr-3"
           {% else %}
             class="nav-item mr-3"
