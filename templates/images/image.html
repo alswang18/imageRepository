@@ -29,14 +29,12 @@
         />
         <!-- Fields -->
         <div class="row mb-5 fields">
-          <div class="col-md-6"></div>
           <div class="col-md-6">
             <ul class="list-group list-group-flush">
               <li class="list-group-item text-secondary">
                 <i class="fas fa-calendar"></i> Upload Date:
-                <span class="float-right"
-                  >{{ image.upload_date | timesince }}</span
-                >
+                <!--Image-->
+                {{ image.upload_date | timesince }}
               </li>
             </ul>
           </div>
@@ -51,6 +49,15 @@
         </div>
       </div>
       <div class="col-md-3">
+        <div class="card mb-3">
+          <div class="card-body">
+            {% if is_owner %}
+            <h5 class="card-title">I own this image.</h5>
+            {% else %}
+            <h5 class="card-title">Image Owner: {{ image.user }}</h5>
+            {% endif %}
+          </div>
+        </div>
         <!-- <button
           class="btn-primary btn-block btn-lg"
           data-toggle="modal"

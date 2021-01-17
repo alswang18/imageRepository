@@ -19,14 +19,15 @@ def image(request, image_id):
     image = Image.objects.filter(
         Q(user=request.user.id) | Q(hidden_to_others=False)
     ).filter(pk=image_id)
-
+    is_owner = Image.objects.filter(pk=image_id, user=request.user.id).exists()
     if image.exists():
         image = image[0]
     else:
         raise Http404("Image does not exist or is unavailable.")
 
     context = {
-        'image': image
+        'image': image,
+        'is_owner': is_owner
     }
 
     return render(request, 'images/image.html', context)
@@ -48,6 +49,8 @@ def upload(request):
             form.save()
             print("Form Saved")
             return redirect('dashboard')
+        else:
+            messages.error(request, 'File upload was not successful!')
     count = Image.objects.filter(user=request.user.id).count()
     context = {'count': count, 'form': form}
     return render(request, 'images/upload.html', context)

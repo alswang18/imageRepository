@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
+from django.db.models import Q
 from images.models import Image
 
 
@@ -59,7 +60,7 @@ def dashboard(request):
         return redirect('home')
 
     images = Image.objects.order_by(
-        '-upload_date').filter(user=request.user.id)
+        '-upload_date').filter(Q(user=request.user.id) | Q(hidden_to_others=False))
 
     context = {
         'images': images
