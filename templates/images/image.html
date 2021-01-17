@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+<!--humanize formats things to make em more readable-->
+{% load humanize %}
+<!--Block Content-->
+{% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h1 class="display-4">{{ image.title }}</h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--Image-->
+<section id="listing" class="py-4">
+  <div class="container">
+    <a href="{% url 'dashboard' %}" class="btn btn-light mb-4"
+      >Back To Dashboard</a
+    >
+    <div class="row">
+      <div class="col-md-9">
+        <!--Image -->
+        <img
+          src="{{ image.image.url }}"
+          alt=""
+          class="img-main img-fluid mb-3"
+        />
+        <!-- Fields -->
+        <div class="row mb-5 fields">
+          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-calendar"></i> Upload Date:
+                <span class="float-right"
+                  >{{ image.upload_date | timesince }}</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="row mb-5">
+          <div class="col-md-12">
+            <!--Image Description-->
+            {{ image.imageDescription }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <!-- <button
+          class="btn-primary btn-block btn-lg"
+          data-toggle="modal"
+          data-target="#inquiryModal"
+        >
+          Make An Inquiry
+        </button> -->
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,4 +1,5 @@
 
+from django.contrib.messages import constants as messages
 import os
 from pathlib import Path
 from dotenv import load_dotenv, find_dotenv
@@ -28,7 +29,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'images'
+    'django.contrib.humanize',
+    'images',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -46,7 +49,7 @@ ROOT_URLCONF = 'imageRepository.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -113,3 +116,8 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# Messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}

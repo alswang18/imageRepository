@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages, auth
-from django.conf import settings
+from django.contrib.auth.models import User
+from images.models import Image
 
 
 def register(request):
@@ -12,14 +13,14 @@ def register(request):
         password = request.POST['password']
         password2 = request.POST['password2']
         if password == password2:
-            if settings.AUTH_USER_MODEL.objects.filter(username=username).exists():
+            if User.objects.filter(username=username).exists():
                 messages.error(request, 'That username is taken')
                 return redirect('register')
             # if settings.AUTH_USER_MODEL.objects.filter(email=email).exists():
             #     messages.error(request, 'Email is already being used.')
             #     return redirect('register')
             else:
-                user = settings.AUTH_USER_MODEL.objects.create_user(
+                user = User.objects.create_user(
                     username=username, password=password, email=email, first_name=first_name, last_name=last_name)
                 user.save()
                 messages.success(request, 'You are registered and can log in')
@@ -28,4 +29,46 @@ def register(request):
             messages.error(request, 'Passwords do not match')
             return redirect('register')
     else:
+        if request.user.id is not None:
+            return redirect('dashboard')
         return render(request, 'accounts/register.html')
+
+
+def login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = auth.authenticate(username=username, password=password)
+
+        if user is not None:
+            auth.login(request, user)
+            messages.success(request, 'You are now logged in')
+            return redirect('dashboard')
+        else:
+            messages.error(request, 'Invalid credentials')
+            return redirect('login')
+    else:
+        if request.user.id is not None:
+            return redirect('dashboard')
+        return render(request, 'accounts/login.html')
+
+
+def dashboard(request):
+    if request.user.id is None:
+        return redirect('home')
+
+    images = Image.objects.order_by(
+        '-upload_date').filter(user=request.user.id)
+
+    context = {
+        'images': images
+    }
+    return render(request, 'accounts/dashboard.html', context)
+
+
+def logout(request):
+    if request.method == 'POST':
+        auth.logout(request)
+        messages.success(request, 'You are now logged out')
+        return redirect('home')
