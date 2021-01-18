@@ -3,8 +3,6 @@ from django.conf import settings
 from datetime import datetime
 from django.conf import settings
 from django.db import models
-from django.utils import timezone
-import pytz
 
 
 class Image(models.Model):
@@ -17,7 +15,7 @@ class Image(models.Model):
     imageDescription = models.TextField(blank=True)
     copyrighted = models.BooleanField(default=True)
     hidden_to_others = models.BooleanField(default=True)
-    upload_date = models.DateTimeField(default=timezone.now())
+    upload_date = models.DateTimeField(default=datetime.now)
 
     def __str__(self):
         return self.title+" User:"+str(self.user)

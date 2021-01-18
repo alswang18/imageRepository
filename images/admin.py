@@ -4,7 +4,7 @@ from . models import Image
 
 
 class ImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title')
+    list_display = ('id', 'title', 'user', 'hidden_to_others', 'copyrighted')
     list_filter = ('user',)
     list_editable = ('hidden_to_others', 'copyrighted')
     search_fields = ('title', 'imageDescription')
