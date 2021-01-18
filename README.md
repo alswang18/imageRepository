@@ -31,8 +31,8 @@ pipenv run python manage.py createsuperuser
 pipenv run python manage.py runserver
 #Option 2
 #to run on docker do the following
-docker build -t django-image-repo -f Dockerfilemage-repo -f Dockerfile .
-docker run -it -p 8888:8mage-repo -f Dockerfile888 django-image-repo
+docker build -t django-image-repo -f Dockerfile .
+docker run -it -p 8888:8888 django-image-repo
 
 #Go to localhost:8888
 #There is currently a problem loading static assets in the docker version.
