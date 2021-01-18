@@ -43,6 +43,7 @@ docker run -it -p 8888:8888 django-image-repo
 
 - Make the datetime system more robust for users from different timezones to interact.
 - Fix the Docker container interactions to properly load static files.
+- Move the CDN files away from the repo. 
 
 ### Top of Mind **Feature Roadmap:**
 
