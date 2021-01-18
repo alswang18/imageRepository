@@ -6,6 +6,7 @@ from . models import Image
 class ImageAdmin(admin.ModelAdmin):
     list_display = ('id', 'title')
     list_filter = ('user',)
+    list_editable = ('hidden_to_others', 'copyrighted')
     search_fields = ('title', 'imageDescription')
     list_per_page = 25
 
