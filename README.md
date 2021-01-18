@@ -35,7 +35,7 @@ docker build -t django-image-repo -f Dockerfile .
 docker run -it -p 8888:8888 django-image-repo
 
 #Go to localhost:8888
-#There is currently a problem loading static assets in the docker version.
+#There is currently a problem loading static assets in the docker version cause Nginx hasn't been configured.
 #I am largely certain functionality is maintained as the only issue seems to be linking static files.
 ```
 
