@@ -1,5 +1,8 @@
 # Shopify Back-End Intern Challenge
 
+### About Django:
+Django is a batteries-included Python web framework that uses the MVC pattern. I chose to use the default SQLite database, but because Django comes with a pretty good ORM by default, storing data on Postgres or MySQL is a trivial setup procedure from what is already in the repo. 
+
 ### Demo Video:
 
 [https://www.loom.com/share/71d988e7efb04e758164be870b9ece67](https://www.loom.com/share/71d988e7efb04e758164be870b9ece67)
