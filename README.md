@@ -36,7 +36,7 @@ docker run -it -p 8888:8mage-repo -f Dockerfile888 django-image-repo
 
 #Go to localhost:8888
 #There is currently a problem loading static assets in the docker version.
-#You can likely as easily 
+#I am largely certain functionality is maintained as the only issue seems to be linking static files.
 ```
 
 ### **Things That Still Bother Me:**
