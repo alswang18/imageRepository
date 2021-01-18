@@ -48,4 +48,4 @@ docker run -it -p 8888:8mage-repo -f Dockerfile888 django-image-repo
 
 - Save a copyrighted version of each of the files to load if the image is copyrighted. Implementation for watermark function has been somewhat worked on as seen in the unintegrated watermark.py file.
 - Implement JWT-based authentication instead of session-based authentication to allow for better scalability and compatibility with Frontend JS frameworks like React.
-- Implement S3 object storage using the boto package instead of storing it locally.
+- Implement S3 object storage using the boto package instead of storing locally cause bootstrap and other static resources are pretty big and images will get big for local storage over time.
